@@ -1,6 +1,5 @@
 import requests
 import re
-import liveconfig
 from collections import defaultdict
 from CTFd.utils.scores import get_standings, get_team_standings
 from flask import request
@@ -18,9 +17,14 @@ from CTFd.models import Fails, Teams, Tracking, Users, db
 ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n // 10 % 10 != 1) * (n % 10 < 4) * n % 10 :: 4],)
 sanreg = re.compile(r'(~|!|@|#|\$|%|\^|&|\*|\(|\)|\_|\+|\`|-|=|\[|\]|;|\'|,|\.|\/|\{|\}|\||:|"|<|>|\?)')
 sanitize = lambda m: sanreg.sub(r"\1", m)
-
+# link to your webhook for live scoreboard
+WEBHOOK="http://localhost:5000"
+# token used for auth
+TOKEN="TOKEN"
+# limit
+LIMIT = 0
 def send(url, data):
-    r = requests.post(url,data=str(data).replace("'", '"'),headers={"Content-Type": "application/json", "Verify-CTFd": liveconfig.TOKEN},)
+    r = requests.post(url,data=str(data).replace("'", '"'),headers={"Content-Type": "application/json", "Verify-CTFd": TOKEN},)
 
 
 def clean_dict(input_dict):
@@ -39,9 +43,9 @@ def load(app):
 
     TEAMS_MODE = ctfd_config.is_teams_mode()
 
-    if liveconfig.WEBHOOK:
+    if WEBHOOK:
         try:
-            requests.get(liveconfig.WEBHOOK)
+            requests.get(WEBHOOK)
         except:
             print("\n***LIVESCOREBOARD WARNING:WEBHOOK NOT WORKING! Plugin disabled***\n")
             return
@@ -78,7 +82,7 @@ def load(app):
                         solvers = solvers.filter(Solves.user.has(hidden=False))
                     num_solves = solvers.count()
 
-                    if int(liveconfig.LIMIT) > 0 and num_solves > int(liveconfig.LIMIT):
+                    if int(LIMIT) > 0 and num_solves > int(LIMIT):
                         return result
 
                     user = get_current_user()
@@ -130,12 +134,12 @@ def load(app):
                         }
 
                     # send solve
-                    send(liveconfig.WEBHOOK + "/api/solve", solve_details)
+                    send(WEBHOOK + "/api/solve", solve_details)
                     # send scoreboard
-                    send(liveconfig.WEBHOOK + "/api/scoreboard", score_result)
+                    send(WEBHOOK + "/api/scoreboard", score_result)
                     # send blood
                     if firstblood:
-                        send(liveconfig.WEBHOOK + "/api/firstblood", solve_details)
+                        send(WEBHOOK + "/api/firstblood", solve_details)
 
             return result
 
