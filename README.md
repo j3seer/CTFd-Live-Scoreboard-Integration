@@ -5,6 +5,8 @@ This is a live scoreboard integration project with ctfd, which includes two thin
 - a ctfd plugin for live updates
 - a nodejs based app hosting the livescoreboard
 
+**NB**: this only works on team based CTFd instances
+
 # Formatting
 
 These are the formats in which the plugin sends the data to the scoreboard
