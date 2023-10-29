@@ -27,7 +27,6 @@ These are the formats in which the plugin sends the data to the scoreboard
 
 Before running both  the plugin and the livescoreboard app you need to modify:
 
-- liveconfig.py
 - Dockerfile
 
 To run the ctfd plugin:
