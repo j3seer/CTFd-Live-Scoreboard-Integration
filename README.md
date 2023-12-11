@@ -50,12 +50,17 @@ sudo docker build . -t live-scoreboard
 sudo docker run --name=live-scoreboard -d --rm -p5000:5000 -it live-scoreboard
 ```
 # TODO 
-[] Add DB instead of files
-[] Docker compose file with db volume to not loose data
-[] better sanitization on team names
-[] improve json format to be more readable and more detailed
-[] improve ui
-[] flexible html and css (theme based)
+[ ] Add DB instead of files
+
+[ ] Docker compose file with db volume to not loose data
+
+[ ] better sanitization on team names
+
+[ ] improve json format to be more readable and more detailed
+
+[ ] improve ui
+
+[ ] flexible html and css (theme based)
 
 # Test
 
