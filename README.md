@@ -60,6 +60,8 @@ sudo docker run --name=live-scoreboard -d --rm -p5000:5000 -it live-scoreboard
 
 - [ ] improve ui
 
+- [ ] add number of firstbloods per team to UI
+
 - [ ] flexible html and css (theme based)
 
 # Test
