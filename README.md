@@ -52,7 +52,11 @@ sudo docker run --name=live-scoreboard -d --rm -p5000:5000 -it live-scoreboard
 # TODO 
 - [ ] Add DB instead of files
 
-- [ ] Docker compose file with db volume to not loose data
+- [ ] add dashboard for management
+
+- [ ] add DB local backup
+    
+- [ ] Docker compose file with db/db backup volumes to not loose data
 
 - [ ] better sanitization on team names
 
