@@ -1,0 +1,58 @@
+.toast {
+  font-size: 2.1em;
+  background-color: #2a2b3b;
+  text-align: center;
+  animation: slide-in 1s ease-out forwards;
+}
+.message {
+  font-size: 0.8em;
+  color: #878787;
+}
+.toast-area {
+  width: 95%;
+  z-index: 100;
+  position: absolute;
+}
+/** animation for first blood slide in **/
+@keyframes slide-in {
+  0% {
+      filter: blur(5px);
+      -webkit-filter: blur(5px);
+      transform: translate(0, -10px);
+      animation: pulse 10s;
+      box-shadow: 0 0 0 2em transparent;
+      opacity: 0;
+ }
+  100% {
+      opacity: 1;
+ }
+}
+/** animation for activity boxes sliding in the right **/
+.slide-in-right {
+  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@-webkit-keyframes slide-in-right {
+  0% {
+      -webkit-transform: translateX(1000px);
+      transform: translateX(1000px);
+      opacity: 0;
+ }
+  100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+      opacity: 1;
+ }
+}
+@keyframes slide-in-right {
+  0% {
+      -webkit-transform: translateX(1000px);
+      transform: translateX(1000px);
+      opacity: 0;
+ }
+  100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+      opacity: 1;
+ }
+}

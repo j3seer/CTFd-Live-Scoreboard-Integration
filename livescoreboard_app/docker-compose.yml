@@ -1,0 +1,30 @@
+version: "3.3"
+services:
+  livescoreboard_app:
+    container_name: livescoreboard_app
+    hostname: livescoreboard_app
+    image: livescoreboard_app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 3
+    ports:
+      - "5000:5000" 
+    environment:
+      - CTFd_TOKEN=TOKEN
+      - start_date=2000-01-01 00:00:00
+      - finish_date=2000-01-01 00:00:00
+      - CTF_TITLE=TitleCTF
+      # used for dashboard login
+      - admin_token=admin_token_to_change
+      # needed for socket io to work correctly
+      - DOMAIN=localhost
+      - PORT=5000
+      # set to true if domain running on HTTPS
+      # needed for cookie flag "secure"
+      - HTTPS=true
+    volumes:
+      - ./app/activity.log:/app/activity.log
+      - ./app/db:/app/db
