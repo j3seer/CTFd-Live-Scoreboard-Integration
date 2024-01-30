@@ -1,9 +1,6 @@
 # Live Scoreboard Integration with CTFd
 
-<figure class="video_container">
-  <iframe src="livescoreboard.mp4" frameborder="0" allowfullscreen="true"> 
-</iframe>
-</figure>
+![](./livescoreboard.mp4)
 
 This is a live scoreboard integration project with ctfd, which includes two things:
 
