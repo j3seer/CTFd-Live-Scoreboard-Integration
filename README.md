@@ -1,6 +1,9 @@
 # Live Scoreboard Integration with CTFd
 
-![](https://raw.githubusercontent.com/j3seer/CTFd-Live-Scoreboard-Integration/main/livescoreboard.mp4)
+<figure class="video_container">
+  <iframe src="livescoreboard.mp4" frameborder="0" allowfullscreen="true"> 
+</iframe>
+</figure>
 
 This is a live scoreboard integration project with ctfd, which includes two things:
 
