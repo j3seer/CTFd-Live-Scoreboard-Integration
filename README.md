@@ -1,6 +1,6 @@
 # Live Scoreboard Integration with CTFd
 
-![](https://imgur.com/Y3m8kbU)
+![](imgur.com/a/EqYQ23o)
 
 This is a live scoreboard integration project with ctfd, which includes two things:
 
