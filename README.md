@@ -91,6 +91,8 @@ Before installing anything you need to modify the following variables:
 WEBHOOK="http://localhost:5000"
 # token used for auth
 TOKEN="TOKEN"
+# discord webhook
+DISCORD_WEBHOOK=""
 ```
 
 > [!NOTE]
