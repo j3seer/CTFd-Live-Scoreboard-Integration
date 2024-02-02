@@ -138,6 +138,8 @@ Running install.sh
 
 - [ ] flexible html and css (theme based)
 
+- [ ] add send to discord webhook
+
 # Bugs 
 
 Please report bugs to me directly on discord @j3seer
