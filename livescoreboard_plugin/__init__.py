@@ -1,27 +1,43 @@
 import requests
 import re
 import json
-from collections import defaultdict
-from CTFd.utils.scores import get_standings, get_team_standings
+from CTFd.utils.scores import get_team_standings
 from flask import request
 from flask.wrappers import Response
 from CTFd.utils.dates import ctftime
-from CTFd.models import Challenges, Solves, Teams, Submissions
+from CTFd.models import Challenges, Solves, Teams
 from CTFd.utils import config as ctfd_config
-from CTFd.utils.user import get_current_team, get_current_user,get_current_team_attrs
+from CTFd.utils.user import get_current_team, get_current_user
 from functools import wraps
-from urllib.parse import quote
-from CTFd.utils.dates import isoformat
 from CTFd.models import Teams
-from .conf import WEBHOOK,TOKEN
+from .conf import WEBHOOK,TOKEN,DISCORD_WEBHOOK
+from discord_webhook import DiscordWebhook, DiscordEmbed
+import glob, random
 
 sanreg = re.compile(r'(~|!|@|#|\$|%|\^|&|\*|\(|\)|\_|\+|\`|-|=|\[|\]|;|\'|,|\.|\/|\{|\}|\||:|"|<|>|\?)')
 sanitize = lambda m: sanreg.sub(r"\1", m)
 
 def send(url, data):
     d = json.dumps(data)
-    print(d)
     requests.post(url,data=d,headers={"Content-Type": "application/json", "Verify-CTFd": TOKEN})
+
+def random_gif():
+    gifs = glob.glob("./CTFd/plugins/livescoreboard_plugin/images/*.gif")
+    r_gif = random.choice(gifs)
+    return r_gif
+
+def send_discord(team,challenge):
+    webhook = DiscordWebhook(DISCORD_WEBHOOK)
+    embed = DiscordEmbed(title="FIRST BLOOD 🩸",description=f"Team **{team}** just got the first blood on challenge **{challenge}** !!")
+    embed.set_timestamp()
+    image = random_gif()
+    with open(image, "rb") as f:
+        filename = image.split('/')[-1]
+        webhook.add_file(file=f.read(), filename=filename)
+
+    embed.set_thumbnail(url="attachment://"+filename)
+    webhook.add_embed(embed)
+    webhook.execute()
 
 def load(app):
     TEAMS_MODE = ctfd_config.is_teams_mode()
@@ -71,7 +87,7 @@ def load(app):
                     # if team hidden dont send anything
                     if team.hidden:
                         return result
-                    
+
                     # get current submission
                     submission = Solves.query.filter_by(account_id=user.account_id, challenge_id=challenge_id).first()
                     solve_details = [{
@@ -82,15 +98,20 @@ def load(app):
                         "date": str(submission.date)
                     }]
                     
-
                     score = get_team_standings()
                     score_result = format_scoreboard(score)
 
+                    # send firstbloods to discord webhook
+                    if first_blood and DISCORD_WEBHOOK != "":
+                        try:
+                            send_discord(sanitize("" if team is None else team.name),sanitize(challenge.name))
+                        except Exception as err:
+                            print("Something went wrong with discord webhook..\n"+err)
+                            
                     # send solve
                     send(WEBHOOK + "/api/solve", solve_details)
                     # send scoreboard
                     send(WEBHOOK + "/api/scoreboard", score_result)
-
 
             return result
         return wrapper

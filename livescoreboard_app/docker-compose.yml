@@ -28,3 +28,5 @@ services:
     volumes:
       - ./app/activity.log:/app/activity.log
       - ./app/db:/app/db
+      - ./app/views:/app/views     
+      - ./app/public:/app/public     

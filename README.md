@@ -138,7 +138,7 @@ Running install.sh
 
 - [ ] flexible html and css (theme based)
 
-- [ ] add send to discord webhook
+- [X] add send to discord webhook
 
 # Bugs 
 
