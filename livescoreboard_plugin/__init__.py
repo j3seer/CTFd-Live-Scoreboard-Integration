@@ -18,7 +18,7 @@ sanreg = re.compile(r'(~|!|@|#|\$|%|\^|&|\*|\(|\)|\_|\+|\`|-|=|\[|\]|;|\'|,|\.|\
 sanitize = lambda m: sanreg.sub(r"\1", m)
 
 def send(url, data):
-    d = json.dumps(data)
+    d = json.dumps(data,default=str)
     requests.post(url,data=d,headers={"Content-Type": "application/json", "Verify-CTFd": TOKEN})
 
 def random_gif():
