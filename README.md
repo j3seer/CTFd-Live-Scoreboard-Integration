@@ -148,6 +148,8 @@ Running install.sh
 
 - [ ] add countdown and then reveal scoreboard before start
 
+- [ ] Use react as frontend instead of socket io
+- [ ] 
 # Bugs 
 
 Please report bugs to me directly on discord @j3seer
