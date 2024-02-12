@@ -142,6 +142,12 @@ Running install.sh
 
 - [X] add send to discord webhook
 
+- [ ] fix slow socketio loading when scoreboard is big
+
+- [ ] add loading screen
+
+- [ ] add countdown and then reveal scoreboard before start
+
 # Bugs 
 
 Please report bugs to me directly on discord @j3seer
