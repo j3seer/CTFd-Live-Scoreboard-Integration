@@ -1,6 +1,5 @@
 # Live Scoreboard Integration with CTFd
 
-<video width="630" height="300" src="https://github.com/j3seer/CTFd-Live-Scoreboard-Integration/assets/58823465/4665282f-f5e4-4977-a8b0-4f6f503e6a10"></video>
 
 This is a live scoreboard integration project with ctfd, which includes two things:
 
