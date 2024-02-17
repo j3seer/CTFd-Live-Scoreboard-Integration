@@ -28,35 +28,36 @@ function parse_firtblood_time(date) {
 }
 
 function countdown(start, finish) {
-    var timer = null;
-    var end;
-    var toZero;
-    var start = new Date(start);
-    var finish = new Date(finish);
-    var now = new Date()
-    var date = (finish.getTime() - now.getTime()) / 1000;
-    var day = Math.floor(date / (60 * 60 * 24));
-    var _hour = date - day * 60 * 60 * 24;
-    var hour = Math.floor(_hour / (60 * 60));
-    var _minute = _hour - hour * 60 * 60;
-    var minute = Math.floor(_minute / (60));
-    var _second = _minute - minute * 60;
-    var second = Math.floor(_second);
+    var start = new Date(start).getTime();
+    var finish = new Date(finish).getTime();
+    var now = new Date().getTime();
+
+    if (now < start){ // CTF not started
+        var date = start - now
+        var day = Math.floor(date / (1000 * 60 * 60 * 24));
+    } else if (now > start){ // CTF has started
+        var date = finish - now;
+        var day = Math.floor(date / (1000 * 60 * 60 * 24));
+    }
+
+    var hour = Math.floor((date % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minute = Math.floor((date % (1000 * 60 * 60)) / (1000 * 60));
+    var second = Math.floor((date % (1000 * 60)) / 1000);
+
+    if (date < 0){
+        $("#countdown").html("<span style='color:red;'> CTF Ended! GG </span>");
+        return;
+    }
+
     if (now > start) {
-            // currently running
+            // CTF has started
             $("#countdown").html("<span style='color:orange;'> Ends in: " + day + "\
                 Days, " + hour + "\
                 Hours, " + minute + "\
                 Minutes, " + second + "\
                 Seconds. </span>");
-    } else if (now == finish) {
-            // just ended right now
-            // confetti in ending
-            $("#countdown").html("<span style='color:red;'> SparkCTF Ended!GGs </span>");
-    } else if (now > finish) {
-            $("#countdown").html(" <span style='color:red;'> SparkCTF Ended!GGs </span>");
     } else if (now < start) {
-            // didnt start yep
+            // CTF not Started
             $("#countdown").html("<span style='color:lightgreen;'> Starts in: " + day + "\
                 Days, " + hour + "\
                 Hours, " + minute + "\
