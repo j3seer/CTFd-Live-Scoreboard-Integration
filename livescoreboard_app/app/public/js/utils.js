@@ -34,8 +34,15 @@ function countdown(start, finish) {
     var start = new Date(start);
     var finish = new Date(finish);
     var now = new Date()
-    var date = (finish.getTime() - now.getTime()) / 1000;
-    var day = Math.floor(date / (60 * 60 * 24));
+
+    if (now < start){
+        var date = (start.getTime() - now.getTime()) / 1000;
+        var day = Math.floor(date / (60 * 60 * 24));
+    } else if (now > start){
+        var date = (finish.getTime() - now.getTime()) / 1000;
+        var day = Math.floor(date / (60 * 60 * 24));
+    }
+    
     var _hour = date - day * 60 * 60 * 24;
     var hour = Math.floor(_hour / (60 * 60));
     var _minute = _hour - hour * 60 * 60;
