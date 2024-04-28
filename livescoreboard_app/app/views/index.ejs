@@ -117,24 +117,6 @@
           }
         
       })
-
-      function InvalidDateToConvert(dateString) {
-         let parts = dateString.split(' ');
-         let datePart = parts[0];
-         let timePart = parts[1];
-
-        let timeParts = timePart.split(":");
-        let hours = parseInt(timeParts[0], 10);
-
-        if (hours >= 24) {
-                hours %= 24;
-                let nextDay = new Date(datePart);
-                nextDay.setDate(nextDay.getDate() + 1);
-                datePart = nextDay.toISOString().split('T')[0];
-        }
-        let adjustedDate = datePart + " " + hours.toString().padStart(2, '0') + ":" + timeParts.slice(1).join(":");
-        return adjustedDate;
-      }
       
       // render activity
       function render_activity(jsonData) {
@@ -153,7 +135,7 @@
                   status = "lightblue"
               }    
               team = jsonData[key].team
-              date = InvalidDateToConvert(jsonData[key].date);
+              date = jsonData[key].date
               challenge = jsonData[key].challenge
               user = jsonData[key].user
               output='<li class="list-group-item slide-in-right" style="box-shadow: inset -7px 0 0 '+status+';">\
